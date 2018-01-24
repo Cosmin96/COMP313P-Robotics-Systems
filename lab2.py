@@ -6,6 +6,7 @@ from nav_msgs.msg import Odometry
 from math import pow,atan2,sqrt,pi
 from PyKDL import Rotation
 import sys, getopt
+import math
 
 
 class stdr_controller():
@@ -20,6 +21,31 @@ class stdr_controller():
  
     def current_callback(self, data):
         self.current_pose = data
+
+    def robomov(self, lin_velocity, rot_velocity, duration, vel_msg):
+	pose = self.current_pose.pose.pose
+
+	# Get the position vector. ROS uses nested types for generality, but it gets to be a bit
+	# cumbersome
+	position = pose.position
+	 
+	# The pose returns the orientation as a quaternion, which is a 4D representation of 3D
+	# rotations. We just want the heading angle, so some conversion is required
+	# 
+	orientation = pose.orientation
+
+	theta = 2 * atan2(orientation.z, orientation.w)	
+
+	vel_msg.linear.x = lin_velocity
+	vel_msg.angular.z = rot_velocity
+	self.velocity_publisher.publish(vel_msg)
+	rospy.sleep(duration)
+		
+	# Show the output
+	rospy.loginfo('Current position, x: {}, y:{}, theta:{}'.format(position.x, position.y, theta))
+	vel_msg.linear.x = 0.0
+	vel_msg.angular.z = 0.0
+	self.velocity_publisher.publish(vel_msg)
 
     def run(self):
 	waypoints = open(sys.argv[1])
@@ -54,26 +80,16 @@ class stdr_controller():
 		# 
 		orientation = pose.orientation
 
-		theta = 2 * atan2(orientation.z, orientation.w) * 180 / pi
-
-		# Show the output
-		rospy.loginfo('Current position, x: {}, y:{}, theta:{}'.format(position.x, position.y, theta))
-
-		try:
-			lin_velocity = float(raw_input('Enter desired linear velocity: '))
-			rot_velocity = float(raw_input('Enter desired rotational velocity: '))
-			duration = float(raw_input('Enter desired duration: '))
-			vel_msg.linear.x = lin_velocity
-			vel_msg.angular.z = rot_velocity * pi / 180.0
-			self.velocity_publisher.publish(vel_msg)
-			rospy.sleep(duration)
-		except ValueError:
-			rospy.loginfo('Illegal value entered; try again')
-
-		vel_msg.linear.x = 0.0
-		vel_msg.angular.z = 0.0
-		self.velocity_publisher.publish(vel_msg)
-
+		theta = 2 * atan2(orientation.z, orientation.w)
+		initial_x = position.x
+		initial_y = position.y
+		
+		angle_of_rotation = math.atan2(y_val - initial_y, x_val - initial_x)
+		 
+		self.robomov(0, (angle_of_rotation - theta), 1, vel_msg)
+		self.robomov(math.sqrt((x_val - initial_x) ** 2 + (y_val - initial_y) ** 2), 0, 1, vel_msg)
+		self.robomov(0, (theta_val - angle_of_rotation), 1, vel_msg)
+		
    
 if __name__ == '__main__':
     try:
