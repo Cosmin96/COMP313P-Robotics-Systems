@@ -58,7 +58,7 @@ class stdr_controller():
 		print(line)
 		x_list.append(float(values[0]))
 		y_list.append(float(values[1]))
-		theta_list.append(float(values[2]))
+		theta_list.append(float(values[2]) * pi / 180)
 
         # Sleep for 1s before starting. This gives time for all the parts of stdr to start up
         rospy.sleep(1.0)
@@ -88,7 +88,11 @@ class stdr_controller():
 		 
 		self.robomov(0, (angle_of_rotation - theta), 1, vel_msg)
 		self.robomov(math.sqrt((x_val - initial_x) ** 2 + (y_val - initial_y) ** 2), 0, 1, vel_msg)
-		self.robomov(0, (theta_val - angle_of_rotation), 1, vel_msg)
+		pose = self.current_pose.pose.pose
+		position = pose.position
+		orientation = pose.orientation
+		theta = 2 * atan2(orientation.z, orientation.w)
+		self.robomov(0, (theta_val - theta), 1, vel_msg)
 		
    
 if __name__ == '__main__':
