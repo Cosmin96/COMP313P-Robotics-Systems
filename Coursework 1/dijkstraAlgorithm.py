@@ -1,6 +1,6 @@
 from heapq import heappush, heappop
 
-INFINITY = float('Inf')
+INFINITY = float('INFINITY')
 
 def dijkstra(graph, source):
 	n = len(graph)
