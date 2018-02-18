@@ -40,7 +40,6 @@ class AStarPlanner(CellBasedForwardSearch):
                 cell.parent = parentCell
 
 
-
     def getDistance(self, cell, parentCell):
         cellX = cell.coords[0]
         cellY = cell.coords[1]
@@ -49,13 +48,16 @@ class AStarPlanner(CellBasedForwardSearch):
         return math.sqrt(((cellX - parentX) ** 2) + ((cellY - parentY) ** 2))
 
     def applyHeuristic(self, cell):
+
+        h = 0
+
         if self.heuristic is "zero":
             h = 0
 
         if self.heuristic is "constant":
             h = ord('A') + ord('F')
 
-        if self.heuristic is "euclidian":
+        if self.heuristic is "euclidean":
             h = self.getDistance(cell, self.goal)
 
         if self.heuristic is "octile":
