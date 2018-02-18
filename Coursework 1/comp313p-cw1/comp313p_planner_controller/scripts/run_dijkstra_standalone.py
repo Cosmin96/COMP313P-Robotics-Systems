@@ -14,7 +14,7 @@ for y in xrange(1, 19):
 start = (3, 18)
 goal = (20, 0)
 
-planner = DijkstraPlanner('Dijkstra Search', occupancyGrid);
+planner = DijkstraPlanner('Dijkstra', occupancyGrid);
 planner.setRunInteractively(True)
 
 planner.setWindowHeightInPixels(400)
