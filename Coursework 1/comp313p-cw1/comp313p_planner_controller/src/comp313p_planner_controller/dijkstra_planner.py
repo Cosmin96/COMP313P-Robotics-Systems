@@ -2,23 +2,20 @@
 
 from cell_based_forward_search import CellBasedForwardSearch
 from heapq import heappush, heappop
-import math
 
-class BestFirstPlanner(CellBasedForwardSearch):
+
+class DijkstraPlanner(CellBasedForwardSearch):
     # This implements a simple LIFO search algorithm
 
-    def __init__(self, title, occupancyGrid):
+    def __init__(self, title, occupancyGrid, start = (0, 0)):
         CellBasedForwardSearch.__init__(self, title, occupancyGrid)
         self.lifoQueue = list()
+        self.dijkstra(self.occupancyGrid, start)
+
 
     # Simply put on the end of the queue
     def pushCellOntoQueue(self, cell):
-        goalX = self.goal.coords[0]
-        goalY = self.goal.coords[1]
-        cellX = cell.coords[0]
-        cellY = cell.coords[1]
-        distance = math.sqrt(((goalX - cellX) ** 2) + ((goalY - cellY) ** 2))
-        heappush(self.lifoQueue, (distance, cell))
+        heappush(self.lifoQueue, (cell.pathCost, cell))
 
     # Check the queue size is zero
     def isQueueEmpty(self):
@@ -32,3 +29,17 @@ class BestFirstPlanner(CellBasedForwardSearch):
     def resolveDuplicate(self, cell, parentCell):
         # Nothing to do in self case
         pass
+
+    def dijkstra(self, occupancyGrid, source):
+        start = occupancyGrid.getCell(source[0], source[1])
+        start.pathCost = 0
+        Q = [(0, start)]
+
+
+        while len(Q) != 0:
+            (cost, cell) = heappop(Q)
+
+            for cell2 in self.getNextSetOfCellsToBeVisited(cell):
+                if cell2.pathCost > cell.pathCost + 1:
+                    cell2.pathCost = cell.pathCost + 1
+                    heappush(Q, (cell2.pathCost, cell2))
