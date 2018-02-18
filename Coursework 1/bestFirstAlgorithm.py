@@ -2,7 +2,7 @@ from heapq import heappush, heappop
 
 def insert(queue, n):
 	heappush(queue, n)
-	queue.sort()
+	#queue.sort()
 
 def getFirst(queue):
 	return heappop(queue)
