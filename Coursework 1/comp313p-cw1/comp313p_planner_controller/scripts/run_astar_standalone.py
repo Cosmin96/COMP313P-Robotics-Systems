@@ -16,7 +16,7 @@ goal = (20, 0)
 heuristics = ["zero", "constant", "euclidean", "octile", "manhattan"]
 
 for heuristic in heuristics:
-    planner = AStarPlanner('A* Search', occupancyGrid, heuristic, scale= 1/100.0)
+    planner = AStarPlanner('A* Search', occupancyGrid, heuristic, scale= 0.5)
     planner.setRunInteractively(True)
 
     planner.setWindowHeightInPixels(400)

@@ -27,11 +27,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="astar_planner.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="astar_planner.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/comp313p_planner_controller/src/comp313p_planner_controller/astar_planner.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="51" column="13" lean-forward="false" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
+            <state relative-caret-position="864">
+              <caret line="72" column="19" lean-forward="true" selection-start-line="72" selection-start-column="19" selection-end-line="72" selection-end-column="19" />
               <folding>
                 <element signature="e#25#85#0" expanded="true" />
               </folding>
@@ -39,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="run_astar_standalone.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="run_astar_standalone.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/comp313p_planner_controller/scripts/run_astar_standalone.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+            <state relative-caret-position="540">
+              <caret line="18" column="76" lean-forward="false" selection-start-line="18" selection-start-column="76" selection-end-line="18" selection-end-column="76" />
               <folding>
                 <element signature="e#156#224#0" expanded="true" />
               </folding>
@@ -88,8 +88,8 @@
         <option value="$PROJECT_DIR$/comp313p_planner_controller/src/comp313p_planner_controller/bestFirst_planner.py" />
         <option value="$PROJECT_DIR$/comp313p_planner_controller/src/comp313p_planner_controller/dijkstra_planner.py" />
         <option value="$PROJECT_DIR$/comp313p_planner_controller/scripts/run_dijkstra_standalone.py" />
-        <option value="$PROJECT_DIR$/comp313p_planner_controller/scripts/run_astar_standalone.py" />
         <option value="$PROJECT_DIR$/comp313p_planner_controller/src/comp313p_planner_controller/astar_planner.py" />
+        <option value="$PROJECT_DIR$/comp313p_planner_controller/scripts/run_astar_standalone.py" />
       </list>
     </option>
   </component>
@@ -396,7 +396,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="2391" y="-9" width="2418" height="1318" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20239112" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -406,7 +405,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294643" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294643" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3294643" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -500,7 +499,7 @@
         <state relative-caret-position="275">
           <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding>
-            <element signature="e#156#224#0" expanded="true" />
+            <element signature="e#156#224#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -552,7 +551,7 @@
         <state relative-caret-position="348">
           <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding>
-            <element signature="e#156#224#0" expanded="true" />
+            <element signature="e#156#224#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -562,7 +561,7 @@
         <state relative-caret-position="464">
           <caret line="16" column="35" lean-forward="false" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
           <folding>
-            <element signature="e#156#224#0" expanded="true" />
+            <element signature="e#156#224#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -572,7 +571,7 @@
         <state relative-caret-position="544">
           <caret line="97" column="66" lean-forward="true" selection-start-line="97" selection-start-column="55" selection-end-line="97" selection-end-column="66" />
           <folding>
-            <element signature="e#25#65#0" expanded="true" />
+            <element signature="e#25#65#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -631,22 +630,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/comp313p_planner_controller/scripts/run_astar_standalone.py">
+    <entry file="file://$PROJECT_DIR$/comp313p_planner_controller/src/comp313p_planner_controller/astar_planner.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+        <state relative-caret-position="864">
+          <caret line="72" column="19" lean-forward="true" selection-start-line="72" selection-start-column="19" selection-end-line="72" selection-end-column="19" />
           <folding>
-            <element signature="e#156#224#0" expanded="true" />
+            <element signature="e#25#85#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/comp313p_planner_controller/src/comp313p_planner_controller/astar_planner.py">
+    <entry file="file://$PROJECT_DIR$/comp313p_planner_controller/scripts/run_astar_standalone.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="51" column="13" lean-forward="false" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
+        <state relative-caret-position="540">
+          <caret line="18" column="76" lean-forward="false" selection-start-line="18" selection-start-column="76" selection-end-line="18" selection-end-column="76" />
           <folding>
-            <element signature="e#25#85#0" expanded="true" />
+            <element signature="e#156#224#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -70,4 +70,4 @@ class AStarPlanner(CellBasedForwardSearch):
             y = abs(cell.coords[1] - self.goal.coords[1])
             h = x + y
 
-        return h * (self.scale + 1)
+        return h * self.scale
