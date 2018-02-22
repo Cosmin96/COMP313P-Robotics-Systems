@@ -2,108 +2,113 @@
 import rospy
 from geometry_msgs.msg  import Twist
 from geometry_msgs.msg  import Pose
-from math import pow,atan2,sqrt
 from comp313p_planner_controller.planned_path import PlannedPath
 from comp313p_planner_controller.controller_base import ControllerBase
 import math
 import angles
 
-# This sample controller works a fairly simple way. It figures out
-# where the goal is. It first turns the robot until it's roughly in
-# the correct direction and then keeps driving. It monitors the
-# angular error and trims it as it goes.
-
+# This sample controller extends the controller in lab2. It keeps going towards next waypoint
+# by rotating and then moving forward. Also, it includes a proportional controller to counter
+# the error encountered along the way (the larger the error, the higher the counter move)
 class Move2GoalController(ControllerBase):
 
     def __init__(self, occupancyGrid):
         ControllerBase.__init__(self, occupancyGrid)
-        
         # Get the proportional gain settings
         self.distanceErrorGain = rospy.get_param('distance_error_gain', 1)
         self.angleErrorGain = rospy.get_param('angle_error_gain', 4)
-
         self.driveAngleErrorTolerance = math.radians(rospy.get_param('angle_error_tolerance', 1))
-    
-    def get_distance(self, goal_x, goal_y):
-        distance = sqrt(pow((goal_x - self.pose.x), 2) + pow((goal_y - self.pose.y), 2))
-        return distance
 
-    def shortestAngularDistance(self, fromAngle, toAngle):
-        delta = toAngle - fromAngle
-        if (delta < -math.pi):
-            delta = delta + 2.0*math.pi
-        elif(delta > math.pi):
-            delta = delta - 2.0*math.pi
-        return delta
         
+    # Driving to a given waypoint from current position
     def driveToWaypoint(self, waypoint):
         vel_msg = Twist()
-
-        dX = waypoint[0] - self.pose.x
-        dY = waypoint[1] - self.pose.y
-        distanceError = sqrt(dX * dX + dY * dY)
-        angleError = self.shortestAngularDistance(self.pose.theta, atan2(dY, dX))
+        waypointX = waypoint[0] - self.pose.x
+        waypointY = waypoint[1] - self.pose.y
+        
+        # Compute the needed distance and angle errors
+        dist_err = math.sqrt(waypointX * waypointX + waypointY * waypointY)
+        angle_err = self.shortestAngularDistance(self.pose.theta, math.atan2(waypointY, waypointX))
        
-        while (distanceError >= self.distanceErrorTolerance) & (not rospy.is_shutdown()):
-            #print("Current Pose: x: {}, y:{} , theta: {}\nGoal: x: {}, y: {}\n".format(self.pose.x, self.pose.y,
-            #                                                                           self.pose.theta, waypoint[0],
-            #                                                                           waypoint[1]))
-            print("Distance Error: {}\nAngular Error: {}".format(distanceError, angleError))
+        # Keep until in the error margin
+        while (dist_err >= self.distanceErrorTolerance) & (not rospy.is_shutdown()):
+            # Default printing the errors at each step
+            print("Distance Error: {}\nAngular Error: {}".format(dist_err, angle_err))
 
-            # Proportional Controller
-            # linear velocity in the x-axis: only switch on when the angular error is sufficiently small
-            if math.fabs(angleError) < self.driveAngleErrorTolerance:
-                vel_msg.linear.x = max(0.0, min(self.distanceErrorGain * distanceError, 10.0))
+            # Proportional Controller for linear velocity
+            if math.fabs(angle_err) < self.driveAngleErrorTolerance:
+                vel_msg.linear.x = max(0.0, min(self.distanceErrorGain * dist_err, 10.0))
                 vel_msg.linear.y = 0
                 vel_msg.linear.z = 0
 
-            # angular velocity in the z-axis:
+            # Proportional Controller for angular velocity
             vel_msg.angular.x = 0
             vel_msg.angular.y = 0
-            vel_msg.angular.z = max(-5.0, min(self.angleErrorGain * angleError, 5.0))
+            vel_msg.angular.z = max(-5.0, min(self.angleErrorGain * angle_err, 5.0))
 
-
-            #print("Linear Velocity: {}\nAngular Velocity: {}\n\n".format(vel_msg.linear.x, math.degrees(vel_msg.angular.z)))
-            # Publishing our vel_msg
+            # Publishing message
             self.velocityPublisher.publish(vel_msg)
             if (self.plannerDrawer is not None):
                 self.plannerDrawer.flushAndUpdateWindow()
                 
             self.rate.sleep()
 
-            distanceError = sqrt(pow((waypoint[0] - self.pose.x), 2) + pow((waypoint[1] - self.pose.y), 2))
-            angleError = self.shortestAngularDistance(self.pose.theta,
-                                                      atan2(waypoint[1] - self.pose.y, waypoint[0] - self.pose.x))
+            dist_err = math.sqrt(math.pow((waypoint[0] - self.pose.x), 2) + math.pow((waypoint[1] - self.pose.y), 2))
+            angle_err = self.shortestAngularDistance(self.pose.theta,
+                                                      math.atan2(waypoint[1] - self.pose.y, waypoint[0] - self.pose.x))
 
-        # Stopping our robot after the movement is over
+        # Stop moving
         vel_msg.linear.x = 0
         vel_msg.angular.z = 0
+
+        # Publishing message
         self.velocityPublisher.publish(vel_msg)
 
-    def rotateToGoalOrientation(self, goalOrientation):
+
+    # Rotating to a goal angle
+    def rotateToGoalOrientation(self, goal_orient):
         vel_msg = Twist()
+        goal_orient = math.radians(goal_orient)
+        angle_err = self.shortestAngularDistance(self.pose.theta, goal_orient)
 
-        goalOrientation = math.radians(goalOrientation)
-
-        angleError = self.shortestAngularDistance(self.pose.theta, goalOrientation)
-
-        while (math.fabs(angleError) >= self.goalAngleErrorTolerance) & (not rospy.is_shutdown()):
-            #print 'Angular Error: ' + str(angleError)
-
+        # Keep until in the error margin
+        while (math.fabs(angle_err) >= self.goalAngleErrorTolerance) & (not rospy.is_shutdown()):
             # angular velocity in the z-axis:
             vel_msg.angular.x = 0
             vel_msg.angular.y = 0
-            vel_msg.angular.z = max(-5.0, min(self.angleErrorGain * angleError, 5.0))
+            vel_msg.angular.z = max(-5.0, min(self.angleErrorGain * angle_err, 5.0))
 
-            # Publishing our vel_msg
+            # Publishing message
             self.velocityPublisher.publish(vel_msg)
             if (self.plannerDrawer is not None):
                 self.plannerDrawer.flushAndUpdateWindow()
                 
             self.rate.sleep()
-            angleError = self.shortestAngularDistance(self.pose.theta, goalOrientation)
 
-        # Stop movement once finished
+            # Update angle error
+            angle_err = self.shortestAngularDistance(self.pose.theta, goal_orient)
+
+        # Stop moving
         vel_msg.angular.z = 0
+
+        # Publishing message
         self.velocityPublisher.publish(vel_msg)
+
+
+    # Get distance between position and goal
+    def get_distance(self, goal_x, goal_y):
+        dist = math.sqrt(math.pow((goal_x - self.pose.x), 2) + math.pow((goal_y - self.pose.y), 2))
+        return dist
+
+
+    # Returns the smallest angle difference
+    def shortestAngularDistance(self, fromA, toB):
+        diff = toB - fromA
+
+        # Check if we should add/substract 2PI based on difference
+        if (diff < (-math.pi)):
+            diff = diff + 2.0*math.pi
+        elif(diff > math.pi):
+            diff = diff - 2.0*math.pi
+        return diff
         
