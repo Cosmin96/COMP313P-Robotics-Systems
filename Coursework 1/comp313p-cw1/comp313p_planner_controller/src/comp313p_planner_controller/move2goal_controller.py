@@ -23,15 +23,12 @@ class Move2GoalController(ControllerBase):
     # Driving to a given waypoint from current position
     def driveToWaypoint(self, waypoint):
         vel_msg = Twist()
-        waypointX = waypoint[0] - self.pose.x
-        waypointY = waypoint[1] - self.pose.y
-        
         # Compute the needed distance and angle errors
-        dist_err = math.sqrt(waypointX ** 2 + waypointY ** 2)
-        angle_err = self.shortestAngularDistance(self.pose.theta, math.atan2(waypointY, waypointX))
+        dist_err = math.sqrt((waypoint[0] - self.pose.x) ** 2 + (waypoint[1] - self.pose.y) ** 2)
+        angle_err = self.shortestAngularDistance(self.pose.theta, math.atan2(waypoint[1] - self.pose.y, waypoint[0] - self.pose.x))
        
         # Keep until in the error margin
-        while (dist_err >= self.distanceErrorTolerance) & (not rospy.is_shutdown()):
+        while (dist_err >= self.distanceErrorTolerance) and (not rospy.is_shutdown()):
             # Proportional Controller for linear velocity
             if math.fabs(angle_err) < self.driveAngleErrorTolerance:
                 vel_msg.linear.x = max(0.0, min(self.distanceErrorGain * dist_err, 10.0))
@@ -68,7 +65,7 @@ class Move2GoalController(ControllerBase):
         angle_err = self.shortestAngularDistance(self.pose.theta, goal_orient)
 
         # Keep until in the error margin
-        while (math.fabs(angle_err) >= self.goalAngleErrorTolerance) & (not rospy.is_shutdown()):
+        while (math.fabs(angle_err) >= self.goalAngleErrorTolerance) and (not rospy.is_shutdown()):
             # angular velocity in the z-axis:
             vel_msg.angular.x = 0
             vel_msg.angular.y = 0
