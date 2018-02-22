@@ -27,14 +27,11 @@ class Move2GoalController(ControllerBase):
         waypointY = waypoint[1] - self.pose.y
         
         # Compute the needed distance and angle errors
-        dist_err = math.sqrt(waypointX * waypointX + waypointY * waypointY)
+        dist_err = math.sqrt(waypointX ** 2 + waypointY ** 2)
         angle_err = self.shortestAngularDistance(self.pose.theta, math.atan2(waypointY, waypointX))
        
         # Keep until in the error margin
         while (dist_err >= self.distanceErrorTolerance) & (not rospy.is_shutdown()):
-            # Default printing the errors at each step
-            print("Distance Error: {}\nAngular Error: {}".format(dist_err, angle_err))
-
             # Proportional Controller for linear velocity
             if math.fabs(angle_err) < self.driveAngleErrorTolerance:
                 vel_msg.linear.x = max(0.0, min(self.distanceErrorGain * dist_err, 10.0))
@@ -53,9 +50,8 @@ class Move2GoalController(ControllerBase):
                 
             self.rate.sleep()
 
-            dist_err = math.sqrt(math.pow((waypoint[0] - self.pose.x), 2) + math.pow((waypoint[1] - self.pose.y), 2))
-            angle_err = self.shortestAngularDistance(self.pose.theta,
-                                                      math.atan2(waypoint[1] - self.pose.y, waypoint[0] - self.pose.x))
+            dist_err = math.sqrt((waypoint[0] - self.pose.x) ** 2 + (waypoint[1] - self.pose.y) ** 2)
+            angle_err = self.shortestAngularDistance(self.pose.theta, math.atan2(waypoint[1] - self.pose.y, waypoint[0] - self.pose.x))
 
         # Stop moving
         vel_msg.linear.x = 0
@@ -97,7 +93,7 @@ class Move2GoalController(ControllerBase):
 
     # Get distance between position and goal
     def get_distance(self, goal_x, goal_y):
-        dist = math.sqrt(math.pow((goal_x - self.pose.x), 2) + math.pow((goal_y - self.pose.y), 2))
+        dist = math.sqrt((goal_x - self.pose.x) ** 2 + (goal_y - self.pose.y) ** 2)
         return dist
 
 
