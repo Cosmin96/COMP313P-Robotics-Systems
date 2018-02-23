@@ -2,6 +2,8 @@
 import rospy
 import threading
 import math
+import time
+import datetime
 
 # Robot pose
 from geometry_msgs.msg import Pose
@@ -154,6 +156,14 @@ class PlannerControllerNode(object):
                 continue
 
             self.driveToGoal(self.goal)
+            print("---------")
+            print("---------", "Total distance traveled:", self.robotController.total_dist)
+            print("---------", "Total angle turned:", self.robotController.total_angle)
+            print("---------", "Total time spent:", self.robotController.total_time)
+            print("---------")
+            self.robotController.total_dist = 0.0
+            self.robotController.total_angle = 0.0
+            self.robotController.total_time = 0.0
             self.goal = None
 
             # Signal back to the service handler that we are done
