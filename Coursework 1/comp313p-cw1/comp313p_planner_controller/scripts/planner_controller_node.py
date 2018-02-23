@@ -2,6 +2,8 @@
 import rospy
 import threading
 import math
+import time
+import datetime
 
 # Robot pose
 from geometry_msgs.msg import Pose
@@ -56,7 +58,7 @@ class PlannerControllerNode(object):
         self.occupancyGrid.expandObstaclesToAccountForCircularRobotOfRadius(0.2)
 
     def createPlanner(self):
-        self.planner = AStarPlanner('A* Search', self.occupancyGrid, 'octile', scale=0.5)
+        self.planner = AStarPlanner('A* Search - Octile', self.occupancyGrid, 'octile', scale=10)
         self.planner.setPauseTime(0)
         self.planner.windowHeightInPixels = rospy.get_param('maximum_window_height_in_pixels', 700)
         
@@ -154,6 +156,14 @@ class PlannerControllerNode(object):
                 continue
 
             self.driveToGoal(self.goal)
+            print("---------")
+            print("---------", "Total distance traveled:", self.robotController.total_dist)
+            print("---------", "Total angle turned:", self.robotController.total_angle)
+            print("---------", "Total time spent:", self.robotController.total_time)
+            print("---------")
+            self.robotController.total_dist = 0.0
+            self.robotController.total_angle = 0.0
+            self.robotController.total_time = 0.0
             self.goal = None
 
             # Signal back to the service handler that we are done
