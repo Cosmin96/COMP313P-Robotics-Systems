@@ -70,4 +70,9 @@ class AStarPlanner(CellBasedForwardSearch):
             y = abs(cell.coords[1] - self.goal.coords[1])
             h = x + y
 
+        if self.heuristic is "chebyshev":
+            x = abs(cell.coords[0] - self.goal.coords[0])
+            y = abs(cell.coords[1] - self.goal.coords[1])
+            h = x + y - min(x, y)
+
         return h * self.scale
