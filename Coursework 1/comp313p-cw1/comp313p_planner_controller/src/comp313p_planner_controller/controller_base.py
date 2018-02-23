@@ -26,7 +26,7 @@ class ControllerBase(object):
         # distance from the target within which the robot is assumed
         # to be there. The second is the angle. The latter is turned
         # into radians for ease of the controller.
-        self.distanceErrorTolerance = rospy.get_param('distance_error_tolerance', 0.05)
+        self.distanceErrorTolerance = rospy.get_param('distance_error_tolerance', 0.5)
         self.goalAngleErrorTolerance = math.radians(rospy.get_param('goal_angle_error_tolerance', 0.1))
 
         # Set the pose to an initial value to stop things crashing
