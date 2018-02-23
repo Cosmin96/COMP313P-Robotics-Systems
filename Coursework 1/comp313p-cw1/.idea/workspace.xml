@@ -27,11 +27,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="astar_planner.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="astar_planner.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/comp313p_planner_controller/src/comp313p_planner_controller/astar_planner.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="72" column="40" lean-forward="false" selection-start-line="72" selection-start-column="40" selection-end-line="72" selection-end-column="40" />
+            <state relative-caret-position="507">
+              <caret line="83" column="23" lean-forward="true" selection-start-line="83" selection-start-column="23" selection-end-line="83" selection-end-column="23" />
               <folding>
                 <element signature="e#25#85#0" expanded="true" />
               </folding>
@@ -42,18 +42,18 @@
       <file leaf-file-name="move2goal_controller.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/comp313p_planner_controller/src/comp313p_planner_controller/move2goal_controller.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2252">
+            <state relative-caret-position="-2234">
               <caret line="12" column="6" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="run_astar_standalone.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="run_astar_standalone.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/comp313p_planner_controller/scripts/run_astar_standalone.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="189">
-              <caret line="15" column="80" lean-forward="false" selection-start-line="15" selection-start-column="80" selection-end-line="15" selection-end-column="80" />
+              <caret line="15" column="84" lean-forward="true" selection-start-line="15" selection-start-column="84" selection-end-line="15" selection-end-column="93" />
               <folding>
                 <element signature="e#156#224#0" expanded="true" />
               </folding>
@@ -87,11 +87,14 @@
       <find>get</find>
       <find>getN</find>
       <find>print</find>
-      <find>m</find>
       <find>moveTo</find>
       <find>moveT</find>
       <find>move</find>
       <find>move2</find>
+      <find>m</find>
+      <find>minkov</find>
+      <find>minko</find>
+      <find>mink</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -103,9 +106,9 @@
         <option value="$PROJECT_DIR$/comp313p_planner_controller/src/comp313p_planner_controller/bestFirst_planner.py" />
         <option value="$PROJECT_DIR$/comp313p_planner_controller/src/comp313p_planner_controller/dijkstra_planner.py" />
         <option value="$PROJECT_DIR$/comp313p_planner_controller/scripts/run_dijkstra_standalone.py" />
-        <option value="$PROJECT_DIR$/comp313p_planner_controller/src/comp313p_planner_controller/astar_planner.py" />
-        <option value="$PROJECT_DIR$/comp313p_planner_controller/scripts/run_astar_standalone.py" />
         <option value="$PROJECT_DIR$/comp313p_planner_controller/src/comp313p_planner_controller/move2goal_controller.py" />
+        <option value="$PROJECT_DIR$/comp313p_planner_controller/scripts/run_astar_standalone.py" />
+        <option value="$PROJECT_DIR$/comp313p_planner_controller/src/comp313p_planner_controller/astar_planner.py" />
       </list>
     </option>
   </component>
@@ -536,6 +539,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-316">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -581,6 +585,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -588,6 +593,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-450">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -645,16 +651,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/comp313p_planner_controller/src/comp313p_planner_controller/occupancy_grid.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="453">
-          <caret line="79" column="44" lean-forward="true" selection-start-line="79" selection-start-column="44" selection-end-line="79" selection-end-column="44" />
-          <folding>
-            <element signature="e#25#36#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/comp313p_planner_controller/src/comp313p_planner_controller/dijkstra_planner.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -675,30 +671,38 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/comp313p_planner_controller/src/comp313p_planner_controller/move2goal_controller.py">
+    <entry file="file://$PROJECT_DIR$/comp313p_planner_controller/src/comp313p_planner_controller/occupancy_grid.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2252">
-          <caret line="12" column="6" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+        <state relative-caret-position="728">
+          <caret line="90" column="34" lean-forward="false" selection-start-line="88" selection-start-column="9" selection-end-line="90" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/comp313p_planner_controller/src/comp313p_planner_controller/astar_planner.py">
+    <entry file="file://$PROJECT_DIR$/comp313p_planner_controller/src/comp313p_planner_controller/move2goal_controller.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="72" column="40" lean-forward="false" selection-start-line="72" selection-start-column="40" selection-end-line="72" selection-end-column="40" />
-          <folding>
-            <element signature="e#25#85#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-2234">
+          <caret line="12" column="6" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/comp313p_planner_controller/scripts/run_astar_standalone.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
-          <caret line="15" column="80" lean-forward="false" selection-start-line="15" selection-start-column="80" selection-end-line="15" selection-end-column="80" />
+          <caret line="15" column="84" lean-forward="true" selection-start-line="15" selection-start-column="84" selection-end-line="15" selection-end-column="93" />
           <folding>
             <element signature="e#156#224#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/comp313p_planner_controller/src/comp313p_planner_controller/astar_planner.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="507">
+          <caret line="83" column="23" lean-forward="true" selection-start-line="83" selection-start-column="23" selection-end-line="83" selection-end-column="23" />
+          <folding>
+            <element signature="e#25#85#0" expanded="true" />
           </folding>
         </state>
       </provider>

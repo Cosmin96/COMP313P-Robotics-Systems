@@ -13,7 +13,7 @@ for y in xrange(1, 19):
 
 start = (3, 18)
 goal = (20, 0)
-heuristics = ["zero", "constant", "euclidean", "octile", "manhattan", "chebyshev"]
+heuristics = ["zero", "constant", "euclidean", "octile", "manhattan", "chebyshev", "minkowski"]
 
 for heuristic in heuristics:
     planner = AStarPlanner('A* Search', occupancyGrid, heuristic, scale= 0.5)
