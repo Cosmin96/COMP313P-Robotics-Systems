@@ -58,7 +58,7 @@ class PlannerControllerNode(object):
         self.occupancyGrid.expandObstaclesToAccountForCircularRobotOfRadius(0.2)
 
     def createPlanner(self):
-        self.planner = AStarPlanner('A* Search', self.occupancyGrid, 'octile', scale=0.5)
+        self.planner = AStarPlanner('A* Search - Octile', self.occupancyGrid, 'octile', scale=10)
         self.planner.setPauseTime(0)
         self.planner.windowHeightInPixels = rospy.get_param('maximum_window_height_in_pixels', 700)
         
