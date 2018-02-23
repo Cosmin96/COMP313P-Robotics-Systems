@@ -25,7 +25,7 @@ class Move2GoalController(ControllerBase):
         vel_msg = Twist()
         # Compute the needed distance and angle errors
         dist_err = math.sqrt((waypoint[0] - self.pose.x) ** 2 + (waypoint[1] - self.pose.y) ** 2)
-        angle_err = self.shortestAngularDistance(self.pose.theta, math.atan2(waypoint[1] - self.pose.y, waypoint[0] - self.pose.x))
+        angle_err = self.smallestAngDist(self.pose.theta, math.atan2(waypoint[1] - self.pose.y, waypoint[0] - self.pose.x))
        
         # Keep until in the error margin
         while (dist_err >= self.distanceErrorTolerance) and (not rospy.is_shutdown()):
@@ -48,7 +48,7 @@ class Move2GoalController(ControllerBase):
             self.rate.sleep()
 
             dist_err = math.sqrt((waypoint[0] - self.pose.x) ** 2 + (waypoint[1] - self.pose.y) ** 2)
-            angle_err = self.shortestAngularDistance(self.pose.theta, math.atan2(waypoint[1] - self.pose.y, waypoint[0] - self.pose.x))
+            angle_err = self.smallestAngDist(self.pose.theta, math.atan2(waypoint[1] - self.pose.y, waypoint[0] - self.pose.x))
 
         # Stop moving
         vel_msg.linear.x = 0
@@ -62,11 +62,11 @@ class Move2GoalController(ControllerBase):
     def rotateToGoalOrientation(self, goal_orient):
         vel_msg = Twist()
         goal_orient = math.radians(goal_orient)
-        angle_err = self.shortestAngularDistance(self.pose.theta, goal_orient)
+        angle_err = self.smallestAngDist(self.pose.theta, goal_orient)
 
         # Keep until in the error margin
         while (math.fabs(angle_err) >= self.goalAngleErrorTolerance) and (not rospy.is_shutdown()):
-            # angular velocity in the z-axis:
+            # Proportional Controller for angular velocity
             vel_msg.angular.x = 0
             vel_msg.angular.y = 0
             vel_msg.angular.z = max(-5.0, min(self.angleErrorGain * angle_err, 5.0))
@@ -79,7 +79,7 @@ class Move2GoalController(ControllerBase):
             self.rate.sleep()
 
             # Update angle error
-            angle_err = self.shortestAngularDistance(self.pose.theta, goal_orient)
+            angle_err = self.smallestAngDist(self.pose.theta, goal_orient)
 
         # Stop moving
         vel_msg.angular.z = 0
@@ -88,14 +88,8 @@ class Move2GoalController(ControllerBase):
         self.velocityPublisher.publish(vel_msg)
 
 
-    # Get distance between position and goal
-    def get_distance(self, goal_x, goal_y):
-        dist = math.sqrt((goal_x - self.pose.x) ** 2 + (goal_y - self.pose.y) ** 2)
-        return dist
-
-
     # Returns the smallest angle difference
-    def shortestAngularDistance(self, fromA, toB):
+    def smallestAngDist(self, fromA, toB):
         diff = toB - fromA
 
         # Check if we should add/substract 2PI based on difference
