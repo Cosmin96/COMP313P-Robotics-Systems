@@ -76,11 +76,20 @@ class AStarPlanner(CellBasedForwardSearch):
             h = x + y - min(x, y)
 
         if self.heuristic is "minkowski":
-            s = 0
             n = 3
             x = abs(cell.coords[0] - self.goal.coords[0])
             y = abs(cell.coords[1] - self.goal.coords[1])
-            s += abs(x-y)^n
-            h = s^(1/n)
+            s = abs(x - y) ^ n
+            h = s ^ (1 / n)
+
+        if self.heuristic is "cosine":
+            x = abs(cell.coords[0] - self.goal.coords[0])
+            y = abs(cell.coords[1] - self.goal.coords[1])
+            h = (x * y) / (math.sqrt(x) * math.sqrt(y))
+
+        if self.heuristic is "canberra":
+            x = abs(cell.coords[0] - self.goal.coords[0])
+            y = abs(cell.coords[1] - self.goal.coords[1])
+            h = abs(x - y) / (abs(x) + abs(y))
 
         return h * self.scale
