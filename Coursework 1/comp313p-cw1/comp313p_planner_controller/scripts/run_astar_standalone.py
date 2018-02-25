@@ -8,7 +8,7 @@ from comp313p_planner_controller.astar_planner import AStarPlanner
 
 occupancyGrid = OccupancyGrid(21, 21, 0.5)
 
-for y in xrange(1, 19):
+for y in xrange(0, 20):
     occupancyGrid.setCell(11, y, 1)
 
 start = (3, 18)
@@ -16,7 +16,7 @@ goal = (20, 0)
 heuristics = ["zero", "constant", "euclidean", "octile", "manhattan", "chebyshev", "minkowski", "cosine", "canberra"]
 
 for heuristic in heuristics:
-    planner = AStarPlanner('A* Search', occupancyGrid, heuristic, scale= 0.5)
+    planner = AStarPlanner('A* Search - ' + heuristic, occupancyGrid, heuristic, scale = 10)
     planner.setRunInteractively(True)
 
     planner.setWindowHeightInPixels(400)

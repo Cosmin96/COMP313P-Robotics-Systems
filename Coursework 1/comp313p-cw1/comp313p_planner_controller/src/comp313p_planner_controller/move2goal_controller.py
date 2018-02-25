@@ -60,7 +60,6 @@ class Move2GoalController(ControllerBase):
             self.rate.sleep()
 
             self.total_dist = self.total_dist + math.sqrt((self.pose.x - prev_x) ** 2 + (self.pose.y - prev_y) ** 2)
-	    self.total_angle = self.total_angle + math.fabs(self.smallestAngDist(math.atan2(prev_y - self.pose.y, prev_x - self.pose.x), self.pose.theta))
 
             dist_err = math.sqrt((waypoint[0] - self.pose.x) ** 2 + (waypoint[1] - self.pose.y) ** 2)
             angle_err = self.smallestAngDist(self.pose.theta, math.atan2(waypoint[1] - self.pose.y, waypoint[0] - self.pose.x))

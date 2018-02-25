@@ -8,13 +8,13 @@ from comp313p_planner_controller.dijkstra_planner import DijkstraPlanner
 
 occupancyGrid = OccupancyGrid(21, 21, 0.5)
 
-for y in xrange(1, 19):
+for y in xrange(0, 20):
     occupancyGrid.setCell(11, y, 1)
 
 start = (3, 18)
 goal = (20, 0)
 
-planner = DijkstraPlanner('Dijkstra', occupancyGrid);
+planner = DijkstraPlanner('Dijkstra Search', occupancyGrid);
 planner.setRunInteractively(True)
 
 planner.setWindowHeightInPixels(400)

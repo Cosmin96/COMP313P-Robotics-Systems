@@ -8,7 +8,7 @@ from comp313p_planner_controller.bestFirst_planner import BestFirstPlanner
 
 occupancyGrid = OccupancyGrid(21, 21, 0.5)
 
-for y in xrange(1, 19):
+for y in xrange(0, 20):
     occupancyGrid.setCell(11, y, 1)
 
 start = (3, 18)
