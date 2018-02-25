@@ -85,11 +85,18 @@ class AStarPlanner(CellBasedForwardSearch):
         if self.heuristic is "cosine":
             x = abs(cell.coords[0] - self.goal.coords[0])
             y = abs(cell.coords[1] - self.goal.coords[1])
-            h = (x * y) / (math.sqrt(x) * math.sqrt(y))
+            if x == 0 or y == 0:
+                h = 0
+            else:
+                h = (x * y) / (math.sqrt(x) * math.sqrt(y))
+
 
         if self.heuristic is "canberra":
             x = abs(cell.coords[0] - self.goal.coords[0])
             y = abs(cell.coords[1] - self.goal.coords[1])
-            h = abs(x - y) / (abs(x) + abs(y))
+            if x == 0 or y == 0:
+                h = 0
+            else:
+                h = abs(x - y) / (abs(x) + abs(y))
 
         return h * self.scale
