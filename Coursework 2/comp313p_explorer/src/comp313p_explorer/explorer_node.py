@@ -11,20 +11,22 @@ class ExplorerNode(ExplorerNodeBase):
     def __init__(self):
         ExplorerNodeBase.__init__(self)
 
-        self.blackList = []
-    self.currPos = None
+	self.blackList = []
+    	self.currPos = None
 
     # returns false if nor more frontiers
-    def updateFrontiers(self):
-        for x in range(0, self.occupancyGrid.getWidthInCells()):
+    def updateFrontiers(self):        
+	for x in range(0, self.occupancyGrid.getWidthInCells()):
             for y in range(0, self.occupancyGrid.getHeightInCells()):
                 candidate = (x, y)
                 if self.isFrontierCell(x, y) is True:
                     candidateGood = True
-                    for k in range(0, len(self.blackList)):
-                        if self.blackList[k] == candidate:
-                            candidateGood = False
-                            break
+
+		    if hasattr(self, 'blackList'):
+                    	for k in range(0, len(self.blackList)):
+                        	if self.blackList[k] == candidate:
+                            		candidateGood = False
+                            		break
 
                     if candidateGood is True:
                         return True
