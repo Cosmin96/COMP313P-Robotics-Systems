@@ -26,7 +26,7 @@ class ExplorerNode(ExplorerNodeBase):
 
         for i in range(0, row_sz):
             for j in range(0, col_sz):
-                if((i * row_sz) <= currCandidate[0] and ((i + 1) * row_sz) > currCandidate[0] and (j * col_sz) <= currCandidate[1] and ((j + 1) * col_sz) <= currCandidate[1]):
+                if((i * row_sz) <= currCandidate[0] and ((i + 1) * row_sz) > currCandidate[0] and (j * col_sz) <= currCandidate[1] and ((j + 1) * col_sz) >= currCandidate[1]):
                     return ( i * row_sz, (i + 1) * row_sz,  j * col_sz, (j + 1) * col_sz )
 
         return None
@@ -77,25 +77,26 @@ class ExplorerNode(ExplorerNodeBase):
             minVal = 2000000.0
             nextCandidate = None
 
-            for x in range(coords[0], coords[1]):
-                for y in range(coords[2], coords[3]):
-                    candidate = (x, y)
-                    if self.isFrontierCell(x, y) is True:
-                        candidateGood = True
-                        for k in range(0, len(self.blackList)):
-                            if self.blackList[k] == candidate:
-                                candidateGood = False
-                                break
+	    if coords is not None:
+		    for x in range(coords[0], coords[1]):
+		        for y in range(coords[2], coords[3]):
+		            candidate = (x, y)
+		            if self.isFrontierCell(x, y) is True:
+		                candidateGood = True
+		                for k in range(0, len(self.blackList)):
+		                    if self.blackList[k] == candidate:
+		                        candidateGood = False
+		                        break
 
-                        if candidateGood is True:
-                            distanceToCandidate = math.sqrt((candidate[0] - self.currPos[0]) ** 2 + (candidate[1] - self.currPos[1]) ** 2)
-                            if distanceToCandidate < minVal:
-                               minVal = distanceToCandidate
-                               nextCandidate = candidate
+		                if candidateGood is True:
+		                    distanceToCandidate = math.sqrt((candidate[0] - self.currPos[0]) ** 2 + (candidate[1] - self.currPos[1]) ** 2)
+		                    if distanceToCandidate < minVal:
+		                       minVal = distanceToCandidate
+		                       nextCandidate = candidate
 
-            if(nextCandidate is not None):
-                self.currPos = nextCandidate
-                return True, nextCandidate
+		    if(nextCandidate is not None):
+		        self.currPos = nextCandidate
+		        return True, nextCandidate
 
             for x in range(0, self.occupancyGrid.getWidthInCells()):
                 for y in range(0, self.occupancyGrid.getHeightInCells()):
