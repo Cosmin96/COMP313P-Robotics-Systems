@@ -81,6 +81,9 @@ class ExplorerNode(ExplorerNodeBase):
 		    for x in range(coords[0], coords[1]):
 		        for y in range(coords[2], coords[3]):
 		            candidate = (x, y)
+                    	    if x < 0 or x >= self.occupancyGrid.getWidthInCells() or y < 0 or y >= self.occupancyGrid.getHeightInCells():
+                        	break
+
 		            if self.isFrontierCell(x, y) is True:
 		                candidateGood = True
 		                for k in range(0, len(self.blackList)):
