@@ -39,7 +39,6 @@ class ReactivePlannerController(PlannerControllerBase):
         # self.controller.stopDrivingToCurrentGoal()
         waypoints = self.currentPlannedPath.waypoints
         for waypoint in waypoints:
-            #if (waypoint.label is CellLabel.OBSTRUCTED) or (waypoint.label is CellLabel.DEAD):
             x = waypoint.coords[0]
             y = waypoint.coords[1]
             if self.occupancyGrid.getCell(x,y) == 1:
